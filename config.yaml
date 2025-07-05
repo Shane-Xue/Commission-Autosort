@@ -1,0 +1,10 @@
+Compare:
+  ROI_Path: "assets/Maj_Succ.png"
+  input: "TODO"
+  output_pos: "Result/Major_Success/Positive"
+  output_neg: "Result/Major_Success/Negative"
+
+Divide:
+  ROI_Path: "assets/One_Succ.png"
+  input: "TODO"
+  output: "Result/Devided"
