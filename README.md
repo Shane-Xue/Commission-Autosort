@@ -1,5 +1,7 @@
 # Commission Autosorter
 
+[中文Readme](Readme.cn.md)
+
 This project works together with [ALAS](https://github.com/LmeSzinc/AzurLaneAutoScript).
 ALAS tells you what commission rewards you got, but thousands of commissions can be annoying.
 I wrote this to make the sorting process (which probably no one other than me does)
