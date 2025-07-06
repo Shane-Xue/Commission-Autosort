@@ -6,14 +6,14 @@ from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 from tqdm import tqdm
 
-Config = yaml.safe_load(open("config.yaml", 'r'))["Divide"]
+config = yaml.safe_load(open("config.yaml", 'r'))["Divide"]
 
 def get_roi_data():
     
     # Load image using PIL
-    roi = Image.open(Config["ROI_Path"])
+    roi = Image.open(config["ROI_Path"])
     if roi is None:
-        raise FileNotFoundError(f"Could not load ROI from {Config['ROI_Path']}")
+        raise FileNotFoundError(f"Could not load ROI from {config['ROI_Path']}")
     
     # Convert to numpy array
     roi_array = np.array(roi)
@@ -91,17 +91,17 @@ def process_single_image(input_path):
             output_filename = f"{filename}{extension}"
         else:
             output_filename = f"{filename}_{i+1}{extension}"
-        output_path = os.path.join(Config["output"], output_filename)
+        output_path = os.path.join(config["output"], output_filename)
         
         # Convert numpy array back to image and save
         Image.fromarray(split).save(output_path)
 
-def main():
+def Divide():
     # Create output directory if it doesn't exist
-    os.makedirs(Config["output"], exist_ok=True)
+    os.makedirs(config["output"], exist_ok=True)
     
     # Get list of input files
-    input_files = [os.path.join(Config["input"], f) for f in os.listdir(Config["input"])
+    input_files = [os.path.join(config["input"], f) for f in os.listdir(config["input"])
                     if f.lower().endswith(('.png', '.jpg', '.jpeg'))]
     
     # Process images in parallel with progress bar
@@ -109,9 +109,9 @@ def main():
         list(tqdm(
             executor.map(process_single_image, input_files),
             total=len(input_files),
-            desc="Processing images",
+            desc="Dividing images",
             unit="img"
         ))
 
 if __name__ == "__main__":
-    main()
+    Divide()

@@ -8,15 +8,15 @@ import shutil
 from tqdm import tqdm
 import yaml
 
-Config = None
+config = None
 
 def load_config(file_path):
-    global Config
+    global config
     with open(file_path, 'r') as f:
-        Config = yaml.safe_load(f)["Compare"]
+        config = yaml.safe_load(f)["Compare"]
 
 def get_roi_params():
-    roi = np.array(Image.open(Config["ROI_Path"]))
+    roi = np.array(Image.open(config["ROI_Path"]))
     mask = (roi != [0, 0, 0]).any(axis=2)
     y, x = np.where(mask)
     if len(x) == 0 or len(y) == 0:
@@ -97,7 +97,7 @@ def test():
             print(f"False Negative: {img_name}")
             shutil.copy2(img_path, os.path.join("Wrong/False_Neg", img_name))
 
-def run():
+def Maj_Succ():
 # Get ROI parameters and average color
     roi_params, avg_color = get_roi_params()
     if roi_params is None:
@@ -105,11 +105,11 @@ def run():
         return
 
     # Create output directories
-    os.makedirs(Config["output_pos"], exist_ok=True)
-    os.makedirs(Config["output_neg"], exist_ok=True)
+    os.makedirs(config["output_pos"], exist_ok=True)
+    os.makedirs(config["output_neg"], exist_ok=True)
 
     # Process TODO directory
-    todo_path = Config["input"]
+    todo_path = config["input"]
     image_files = [f for f in os.listdir(todo_path) if f.lower().endswith(('.png', '.jpg', '.jpeg'))]
 
     def process_image(img_name):
@@ -117,9 +117,9 @@ def run():
         img_data = np.array(Image.open(img_path))
         
         if check_match(img_data, roi_params, avg_color):
-            dest = os.path.join(Config["output_pos"], img_name)
+            dest = os.path.join(config["output_pos"], img_name)
         else:
-            dest = os.path.join(Config["output_neg"], img_name)
+            dest = os.path.join(config["output_neg"], img_name)
         shutil.move(img_path, dest)
 
     # Use ThreadPoolExecutor for parallel processing
@@ -133,4 +133,4 @@ def run():
 
 if __name__ == "__main__":
     load_config("config.yaml")
-    run()
+    Maj_Succ()

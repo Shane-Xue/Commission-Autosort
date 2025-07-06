@@ -1,10 +1,31 @@
 Compare:
   ROI_Path: "assets/Maj_Succ.png"
-  input: "TODO"
+  input: "TODO/Compare"
   output_pos: "Result/Major_Success/Positive"
   output_neg: "Result/Major_Success/Negative"
 
 Divide:
   ROI_Path: "assets/One_Succ.png"
-  input: "TODO"
+  input: "TODO/Divide"
   output: "Result/Devided"
+
+Categorize:
+  Template: "assets/Categorize"
+  input: "TODO/Categorize"
+  output: "Result/Categorized"
+  threshold: 0.9
+
+Cutting:
+  input: "assets/Categorize"
+  output: "assets/Categorize"
+
+Keep-Drop:
+  input: "TODO/Keep_Drop"
+  output: "Result/get_items"
+
+Invert:
+  input: "TODO/Invert"
+  output: "Result/Invert"
+
+Data Processing:
+  images: "Result/get_items"

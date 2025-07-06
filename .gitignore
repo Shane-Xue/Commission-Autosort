@@ -1,2 +1,9 @@
 *.zip
 .vscode/
+.vscodecounter/
+Result/
+TODO/
+Temp/
+*.csv
+*.txt
+__pycache__/
